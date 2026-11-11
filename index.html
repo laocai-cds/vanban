@@ -3642,30 +3642,30 @@ function run(){const sig=[...hl.querySelectorAll(':scope>div>b')].map(b=>b.textC
 run()})();
 </script>
 <style id="vb-newshead">/* Khối "Tin về xã Văn Bàn": kính xanh ngọc như menu và khối thu nộp đảng phí */
-html body #unit-news{border:1px solid rgba(6,138,192,.28);box-shadow:0 18px 38px -22px rgba(6,110,160,.55),0 1px 0 #fff inset}
-html body #unit-news .un-head{position:relative;overflow:hidden;align-items:center;padding:14px 20px 14px;border-bottom:0;background:radial-gradient(110% 80% at 12% 0%,rgba(255,255,255,.30),transparent 62%),radial-gradient(80% 60% at 100% 100%,rgba(190,245,255,.22),transparent 70%),linear-gradient(160deg,var(--aqua-a),var(--aqua-b) 55%,var(--aqua-c))}
-html body #unit-news .un-head::before{content:"";position:absolute;inset:0 0 0 38%;background:url(banner-van-ban-v3.jpg) 50% 45%/cover no-repeat;opacity:.20;mix-blend-mode:luminosity;-webkit-mask-image:linear-gradient(90deg,transparent,#000 55%);mask-image:linear-gradient(90deg,transparent,#000 55%);pointer-events:none}
-html body #unit-news .un-head::after{content:"";position:absolute;left:0;right:0;bottom:0;height:3px;background:linear-gradient(90deg,#e9cf7a,#fff3c2 42%,transparent)}
+html body #unit-news{border:1px solid #d3e3ea;box-shadow:0 10px 26px -20px rgba(40,90,115,.4),0 1px 0 #fff inset}
+html body #unit-news .un-head{position:relative;overflow:hidden;align-items:center;padding:11px 18px 11px;border-bottom:0;background:radial-gradient(110% 80% at 12% 0%,rgba(255,255,255,.12),transparent 62%),linear-gradient(160deg,#5c9ab4,#4a869f 55%,#3d758e)}
+html body #unit-news .un-head::before{content:"";position:absolute;inset:0 0 0 38%;background:url(banner-van-ban-v3.jpg) 50% 45%/cover no-repeat;opacity:.12;mix-blend-mode:luminosity;-webkit-mask-image:linear-gradient(90deg,transparent,#000 55%);mask-image:linear-gradient(90deg,transparent,#000 55%);pointer-events:none}
+html body #unit-news .un-head::after{content:"";position:absolute;left:0;right:0;bottom:0;height:3px;background:linear-gradient(90deg,rgba(233,207,122,.7),rgba(255,243,194,.45) 42%,transparent)}
 html body #unit-news .un-head>*{position:relative;z-index:1}
-html body #unit-news .un-eyebrow{display:inline-flex;align-items:center;gap:6px;margin:0 0 6px;padding:3px 10px 3px 8px;border-radius:999px;background:rgba(255,255,255,.18);border:1px solid rgba(255,243,194,.55);color:#fff7cc;font:800 10px var(--sans);letter-spacing:.14em;text-shadow:0 1px 3px rgba(4,90,140,.45)}
-html body #unit-news .un-eyebrow::before{content:"";width:6px;height:6px;border-radius:50%;background:#e9cf7a;box-shadow:0 0 0 3px rgba(233,207,122,.28)}
-html body #unit-news .un-head h2{margin:0;color:#fff;font-family:var(--serif);font-weight:700;font-size:clamp(18px,2vw,23px);line-height:1.2;letter-spacing:.005em;text-shadow:0 1px 6px rgba(4,90,140,.5)}
-html body #unit-news .un-sub{margin:5px 0 0;color:rgba(255,255,255,.92);font-size:12px;line-height:1.45}
-html body #unit-news .un-live{margin:5px 0 0;color:#e6fff4}
-html body #unit-news .un-live i{background:#7dffc9}
-html body #unit-news .un-tools select{height:34px;background-color:rgba(255,255,255,.96);border-color:rgba(255,255,255,.7);color:#0b4f78;font-size:12.5px}
-html body #unit-news .un-tools button{height:34px;min-height:0;padding-top:0;padding-bottom:0;white-space:nowrap;background:rgba(255,255,255,.2);border:1px solid rgba(255,255,255,.65);color:#fff;font-size:12px}
+html body #unit-news .un-eyebrow{display:inline-flex;align-items:center;gap:6px;margin:0 0 4px;padding:2px 9px 2px 7px;border-radius:999px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.32);color:rgba(255,255,255,.88);font:700 9px var(--sans);letter-spacing:.14em}
+html body #unit-news .un-eyebrow::before{content:"";width:6px;height:6px;border-radius:50%;background:#e6d08a;box-shadow:0 0 0 2px rgba(230,208,138,.22)}
+html body #unit-news .un-head h2{margin:0;color:#fff;font-family:var(--serif);font-weight:700;font-size:clamp(15px,1.45vw,17.5px);line-height:1.25;letter-spacing:.005em;text-shadow:none}
+html body #unit-news .un-sub{margin:3px 0 0;color:rgba(255,255,255,.8);font-size:11.5px;line-height:1.45}
+html body #unit-news .un-live{margin:3px 0 0;font-size:11px;color:rgba(235,250,244,.9)}
+html body #unit-news .un-live i{background:#8fe3c0;width:6px;height:6px}
+html body #unit-news .un-tools select{height:34px;background-color:rgba(255,255,255,.96);border-color:rgba(255,255,255,.7);color:#2f5c72;font-size:12.5px}
+html body #unit-news .un-tools button{height:34px;min-height:0;padding-top:0;padding-bottom:0;white-space:nowrap;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.4);color:#fff;font-size:12px}
 html body #unit-news .un-tools button:hover{background:rgba(255,255,255,.32)}
 html body #unit-news .un-refresh:not(.un-stat){width:34px;padding:0}
-html body #unit-news .un-item a:hover{background:#eef8fd}
-html body #unit-news .un-item a:hover .un-title{color:#0b6aa8}
-html body #unit-news .un-item.lead a{background:linear-gradient(120deg,#eaf7fd,#fff 72%);border:1px solid #bfe3f3;box-shadow:inset 3px 0 0 #12aad8}
-html body #unit-news .un-src{background:#e3f4fb;color:#0b5e8c}
-html body #unit-news .un-new{background:linear-gradient(180deg,#12aad8,#068ac0)}
-html body #unit-news .un-thumb{border-color:#cfe6f1}
-html body #unit-news .un-morebtn{border-color:#9fd3ea;color:#0b6aa8}
-html body #unit-news .un-morebtn:hover{border-color:#12aad8;background:#eaf7fd}
-html body #unit-news .un-foot{background:#f4fafd;border-top-color:#d9ecf5}
+html body #unit-news .un-item a:hover{background:#f3f8fa}
+html body #unit-news .un-item a:hover .un-title{color:#2f6f8f}
+html body #unit-news .un-item.lead a{background:linear-gradient(120deg,#f1f7fa,#fff 72%);border:1px solid #d6e6ed;box-shadow:inset 3px 0 0 #6fa6bd}
+html body #unit-news .un-src{background:#eaf2f6;color:#3d6479}
+html body #unit-news .un-new{background:#5c9ab4}
+html body #unit-news .un-thumb{border-color:#dbe7ed}
+html body #unit-news .un-morebtn{border-color:#c3d8e1;color:#3d7893}
+html body #unit-news .un-morebtn:hover{border-color:#7fb0c5;background:#f1f7fa}
+html body #unit-news .un-foot{background:#f7fafb;border-top-color:#e2edf1}
 @media(max-width:760px){html body #unit-news .un-head{padding:12px 14px}html body #unit-news .un-head::before{inset:0 0 0 20%}}
 </style>
 </body>
