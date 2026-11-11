@@ -3590,6 +3590,12 @@ html body .dlegend{gap:6px!important}
 :root{--wrap:2600px!important;--wp:16px!important}
 html body .scenic img{max-height:340px!important}
 }
+
+/* Tiêu đề các mục: bỏ nền mũi tên, chỉ giữ icon, chữ và mũi tên nhỏ màu xanh ngọc */
+html body .ph h2,html body .dhead b{background:none!important;clip-path:none!important;border-radius:0!important;color:#06739f!important;padding-left:0!important;text-shadow:none!important}
+html body .ph h2 .hic,html body .dhead b .hic{color:#0a8fc4!important}
+html body .ph h2::before,html body .dhead b::before{background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 34'%3E%3Cpath d='M3 8l9 9-9 9' fill='none' stroke='%230a8fc4' stroke-opacity='.4' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'/%3E%3Cpath d='M12 8l9 9-9 9' fill='none' stroke='%230a8fc4' stroke-opacity='.7' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'/%3E%3Cpath d='M21 8l9 9-9 9' fill='none' stroke='%230a8fc4' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/contain no-repeat!important}
+html body .step .ph h2,html body .thead .ph h2,html body .tabsum .tsPane>.tomtat>.ph h2{color:inherit!important}
 </style>
 </body>
 </html>
