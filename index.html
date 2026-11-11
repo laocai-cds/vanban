@@ -3502,5 +3502,34 @@ html body .brand b{font-size:17px!important;line-height:1.25!important}
 html body .brand .seal{flex:none}
 @media(max-width:900px){html body .brand b{font-size:15.5px!important}}
 </style>
+<style id="aquaGlassCss">/* Kính xanh ngọc trong suốt (màu nước biển): menu trái và khối "Tình hình thu nộp đảng phí" */
+:root{--aqua-a:rgba(18,170,216,.90);--aqua-b:rgba(6,138,192,.90);--aqua-c:rgba(3,108,164,.92);--aqua-line:rgba(255,255,255,.55)}
+html body .bar{background:radial-gradient(120% 55% at 18% 0%,rgba(255,255,255,.34),transparent 62%),radial-gradient(90% 40% at 100% 100%,rgba(190,245,255,.22),transparent 70%),linear-gradient(165deg,var(--aqua-a),var(--aqua-b) 55%,var(--aqua-c))!important;
+  -webkit-backdrop-filter:blur(16px) saturate(1.35);backdrop-filter:blur(16px) saturate(1.35);color:#fff!important;border:1px solid var(--aqua-line)!important;
+  box-shadow:0 16px 36px -16px rgba(6,110,160,.6),inset 0 1px 0 rgba(255,255,255,.6),inset 0 0 0 1px rgba(255,255,255,.12)!important}
+html body .bar::before{opacity:.10}
+html body .hero .wrap>div:first-child{background:radial-gradient(110% 70% at 12% 0%,rgba(255,255,255,.34),transparent 60%),radial-gradient(80% 60% at 100% 100%,rgba(190,245,255,.22),transparent 70%),linear-gradient(160deg,var(--aqua-a),var(--aqua-b) 55%,var(--aqua-c))!important;
+  -webkit-backdrop-filter:blur(16px) saturate(1.35);backdrop-filter:blur(16px) saturate(1.35);border:1px solid var(--aqua-line)!important;
+  box-shadow:0 18px 38px -18px rgba(6,110,160,.6),inset 0 1px 0 rgba(255,255,255,.6),inset 0 0 0 1px rgba(255,255,255,.12)!important}
+html body .hero .wrap>div:first-child::after{background:linear-gradient(90deg,rgba(255,255,255,.2),rgba(255,255,255,.85),rgba(255,255,255,.2))!important}
+/* chữ trên nền xanh ngọc: dùng trắng để đủ tương phản */
+html body .brand b{background:none!important;-webkit-text-fill-color:#fff!important;color:#fff!important;text-shadow:0 1px 6px rgba(4,90,140,.55)!important}
+html body .brand small{color:#eaffff!important}
+html body .bar .btn{background:linear-gradient(180deg,rgba(255,255,255,.22),rgba(255,255,255,.08))!important;border-color:rgba(255,255,255,.45)!important}
+html body .hero .eyebrow{color:#fff7cc!important}
+html body .hero .lede{color:rgba(255,255,255,.94)!important}
+html body .hero .lede-name{color:#fff!important;font-weight:800}
+html body .heroline small{color:rgba(255,255,255,.9)!important}
+html body .heroline>div,html body .heroline>div:nth-child(2n){border-color:rgba(255,255,255,.32)!important}
+html body .hero .wrap>div:first-child button{background:rgba(255,255,255,.22)!important;color:#fff!important;border-color:rgba(255,255,255,.7)!important}
+html body .bar .tabs::before,html body .bar .barright::before{color:#fff!important;text-shadow:0 1px 4px rgba(4,90,140,.5)}
+html body .hero .eyebrow{text-shadow:0 1px 4px rgba(4,90,140,.4)}
+@media(min-width:901px){
+  html body .bar .tab{background:linear-gradient(90deg,rgba(255,255,255,.16),rgba(255,255,255,.04))!important;border-color:rgba(255,255,255,.35)!important}
+  html body .bar .tab,html body .bar .tab span{color:#fff!important;font-weight:600}
+  html body .bar .tab svg{color:#e4fbff!important;opacity:1!important}
+}
+@media(max-width:900px){html body .bar{-webkit-backdrop-filter:none!important;backdrop-filter:none!important;box-shadow:0 6px 16px -10px rgba(6,110,160,.55),inset 0 1px 0 rgba(255,255,255,.5)!important}}
+</style>
 </body>
 </html>
