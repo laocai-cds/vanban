@@ -3634,7 +3634,7 @@ html body .dcenter span{font-size:9.5px!important;max-width:84px!important;line-
 const mo=new MutationObserver(run);
 function run(){const sig=[...hl.querySelectorAll(':scope>div>b')].map(b=>b.textContent).join('|');if(sig===last&&hl.querySelector('.pgs'))return;last=sig;mo.disconnect();
  hl.querySelectorAll('.pgs').forEach(x=>x.remove());
- hl.querySelectorAll(':scope>div').forEach(d=>{const b=d.querySelector('b');if(!b)return;const m=/^([\d.]+)\/([\d.]+)$/.exec(b.textContent.trim());if(!m)return;const a=n(m[1]),t=n(m[2]);if(!t)return;const p=Math.min(100,a/t*100),c=p>=70?'':p>=30?' mid':' low';const e=document.createElement('div');e.className='pgs'+c;e.innerHTML='<i><u style="width:'+p.toFixed(1)+'%"></u></i><em>'+p.toFixed(1).replace('.',',')+'%</em>';d.append(e)});
+ hl.querySelectorAll(':scope>div').forEach(d=>{const b=d.querySelector('b');if(!b)return;const m=/^([\d.]+)\/([\d.]+)$/.exec(b.textContent.trim());if(!m)return;const a=n(m[1]),t=n(m[2]);if(!t)return;const p=Math.min(100,a/t*100),c=p>=70?'':p>=30?' mid':' low';const e=document.createElement('div');e.className='pgs'+c;e.innerHTML='<i><u style="width:'+p.toFixed(1)+'%"></u></i><em>'+(Math.floor(p*100+1e-9)/100).toFixed(2).replace('.',',')+'%</em>';d.append(e)});
  mo.observe(hl,{childList:true,subtree:true,characterData:true})}
 run()})();
 </script>
