@@ -3596,6 +3596,23 @@ html body .ph h2,html body .dhead b{background:none!important;clip-path:none!imp
 html body .ph h2 .hic,html body .dhead b .hic{color:#0a8fc4!important}
 html body .ph h2::before,html body .dhead b::before{background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 34'%3E%3Cpath d='M3 8l9 9-9 9' fill='none' stroke='%230a8fc4' stroke-opacity='.4' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'/%3E%3Cpath d='M12 8l9 9-9 9' fill='none' stroke='%230a8fc4' stroke-opacity='.7' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'/%3E%3Cpath d='M21 8l9 9-9 9' fill='none' stroke='%230a8fc4' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/contain no-repeat!important}
 html body .step .ph h2,html body .thead .ph h2,html body .tabsum .tsPane>.tomtat>.ph h2{color:inherit!important}
+
+/* Trạng thái tiến độ ngay dưới các số a/b ở khối tổng quan */
+html body .heroline .pgs{display:flex;align-items:center;gap:8px;margin-top:6px;width:100%;max-width:230px;align-self:stretch}
+html body .heroline .pgs i{flex:1;height:7px;border-radius:99px;background:rgba(255,255,255,.28);overflow:hidden;box-shadow:inset 0 1px 2px rgba(0,60,100,.25)}
+html body .heroline .pgs u{display:block;height:100%;border-radius:99px;background:linear-gradient(90deg,#8cf0c0,#2fd08a);transition:width .8s ease}
+html body .heroline .pgs.mid u{background:linear-gradient(90deg,#ffe58a,#f2b61f)}
+html body .heroline .pgs.low u{background:linear-gradient(90deg,#ffb48a,#f07b2a)}
+html body .heroline .pgs em{flex:none;font:800 11.5px var(--sans);font-style:normal;color:#fff;padding:2px 8px;border-radius:99px;background:rgba(255,255,255,.22);border:1px solid rgba(255,255,255,.45)}
 </style>
+<script id="heroProgress">
+(()=>{const hl=document.getElementById('heroline');if(!hl)return;const n=t=>Number(String(t).replace(/\./g,'').replace(',','.'));let last='';
+const mo=new MutationObserver(run);
+function run(){const sig=[...hl.querySelectorAll(':scope>div>b')].map(b=>b.textContent).join('|');if(sig===last&&hl.querySelector('.pgs'))return;last=sig;mo.disconnect();
+ hl.querySelectorAll('.pgs').forEach(x=>x.remove());
+ hl.querySelectorAll(':scope>div').forEach(d=>{const b=d.querySelector('b');if(!b)return;const m=/^([\d.]+)\/([\d.]+)$/.exec(b.textContent.trim());if(!m)return;const a=n(m[1]),t=n(m[2]);if(!t)return;const p=Math.min(100,a/t*100),c=p>=70?'':p>=30?' mid':' low';const e=document.createElement('div');e.className='pgs'+c;e.innerHTML='<i><u style="width:'+p.toFixed(1)+'%"></u></i><em>'+p.toFixed(1).replace('.',',')+'%</em>';d.append(e)});
+ mo.observe(hl,{childList:true,subtree:true,characterData:true})}
+run()})();
+</script>
 </body>
 </html>
