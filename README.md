@@ -1,5 +1,5 @@
-# phuckhanh
+# vanban
 
-Hệ thống theo dõi thu nộp đảng phí · Đảng bộ xã Phúc Khánh
+Hệ thống theo dõi thu nộp đảng phí · Đảng bộ xã Văn Bàn
 
-Trang: https://laocai-cds.github.io/phuckhanh/
+Trang: https://laocai-cds.github.io/vanban/
