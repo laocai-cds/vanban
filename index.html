@@ -3604,6 +3604,26 @@ html body .heroline .pgs u{display:block;height:100%;border-radius:99px;backgrou
 html body .heroline .pgs.mid u{background:linear-gradient(90deg,#ffe58a,#f2b61f)}
 html body .heroline .pgs.low u{background:linear-gradient(90deg,#ffb48a,#f07b2a)}
 html body .heroline .pgs em{flex:none;font:800 11.5px var(--sans);font-style:normal;color:#fff;padding:2px 8px;border-radius:99px;background:rgba(255,255,255,.22);border:1px solid rgba(255,255,255,.45)}
+
+/* Co gọn thêm: mở trang là thấy trọn hai bảng tổng quan */
+@media(min-width:901px){
+html body .scenic img{max-height:clamp(120px,calc(100vh - 520px),340px)!important}
+html body .dgroup div{padding:1px 0!important;line-height:1.25!important;font-size:12.5px!important}
+html body .dgroup p{margin:0 0 1px!important;font-size:10px!important}
+html body .dlegend{gap:4px!important}
+html body .dpanel{padding:10px 16px!important}
+html body .dbody{margin-top:0!important}
+html body .dpanel .dhead small{font-size:11.5px!important}
+html body .hero .wrap>div:first-child{padding:10px 22px 8px!important}
+html body .hero h1{font-size:clamp(1.2rem,1.7vw,1.5rem)!important;margin:0 0 2px!important}
+html body .hero .eyebrow{font-size:10.5px!important;margin:0 0 2px!important}
+html body .hero .lede{margin:0 0 2px!important;font-size:12.5px!important}
+html body .heroline{padding-top:4px!important}
+html body .heroline>div{padding:5px 12px 4px 0!important}
+html body .heroline .pgs{margin-top:3px!important}
+html body .heroline small{font-size:11px!important}
+html body .hero .wrap{gap:10px!important}
+}
 </style>
 <script id="heroProgress">
 (()=>{const hl=document.getElementById('heroline');if(!hl)return;const n=t=>Number(String(t).replace(/\./g,'').replace(',','.'));let last='';
