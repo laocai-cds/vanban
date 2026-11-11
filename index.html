@@ -1213,7 +1213,7 @@ go();document.addEventListener('DOMContentLoaded',go);
 </section>
 </main>
 
-<footer class="foot"><div class="wrap"><div class="fcard"><div class="credit"><span class="cr-ic" aria-hidden="true">★</span><div class="cr-t"><span class="cr-k">Thiết kế và phát triển</span><span class="cr-o">Đảng bộ xã Văn Bàn</span></div></div><p class="copyr"><span aria-hidden="true">©</span> Bản quyền 2026 - <b>Đảng ủy xã Văn Bàn</b></p></div></div></footer>
+<footer class="foot"><div class="wrap"><div class="fcard"><div class="credit"><span class="cr-ic" aria-hidden="true">★</span><div class="cr-t"><span class="cr-k">Thiết kế và phát triển</span><span class="cr-o">Đảng bộ xã Văn Bàn</span></div></div><p class="copyr"><span aria-hidden="true">©</span> Bản quyền 2026 - <b>Đảng bộ xã Văn Bàn</b></p></div></div></footer>
 
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
 <div class="back" id="ntModal" role="dialog" aria-modal="true" aria-labelledby="ntTitle">
@@ -3533,6 +3533,25 @@ html body .brand b::selection{background:#fff6c2;color:#9a2c16;-webkit-text-fill
   html body .bar .tab svg{color:#e4fbff!important;opacity:1!important}
 }
 @media(max-width:900px){html body .bar{-webkit-backdrop-filter:none!important;backdrop-filter:none!important;box-shadow:0 6px 16px -10px rgba(6,110,160,.55),inset 0 1px 0 rgba(255,255,255,.5)!important}}
+
+/* Thanh thông báo: cùng tông xanh ngọc với menu trái và hero */
+html body .notice{border:2px solid rgba(255,255,255,.65)!important;box-shadow:0 8px 22px -10px rgba(3,108,164,.55)!important;background:linear-gradient(135deg,rgba(18,170,216,.92),rgba(6,138,192,.92) 55%,rgba(3,108,164,.94))!important}
+html body .notice .nt-badge{background:linear-gradient(135deg,rgba(255,255,255,.28),rgba(255,255,255,.10))!important;color:#fff!important;border-right:1px solid rgba(255,255,255,.55)!important}
+html body .notice .nt-badge svg,html body .notice .nt-badge span{color:#fff!important}
+html body .notice .nt-track{background:rgba(255,255,255,.94)!important}
+html body .notice .livepill{background:linear-gradient(180deg,rgba(6,138,192,.95),rgba(3,108,164,.97))!important;border-left:2px solid rgba(255,255,255,.65)!important}
+html body .notice .livepill .lp+.lp{border-left:1px solid rgba(255,255,255,.4)!important}
+html body .notice .livepill b{color:#fff!important}
+html body .notice .livepill svg{color:#fff!important}
+html body .notice .livepill .ldot{background:#7dffc4!important;box-shadow:0 0 0 3px rgba(125,255,196,.35)!important}
+html body .notice .nt-set{background:rgba(255,255,255,.94)!important;color:#036ca4!important}
+
+/* Chân trang: cùng tông xanh ngọc với menu, hero và thanh thông báo */
+html body .foot .fcard{background:linear-gradient(135deg,rgba(18,170,216,.94),rgba(6,138,192,.94) 55%,rgba(3,108,164,.96))!important;border:2px solid rgba(255,255,255,.6)!important;box-shadow:0 8px 22px -10px rgba(3,108,164,.55)!important}
+html body .foot .fcard::before,html body .foot .fcard::after{opacity:.35}
+html body .foot .fcard .cr-ic{background:rgba(255,255,255,.22)!important;border:1px solid rgba(255,255,255,.7)!important;color:#fff!important}
+html body .foot .fcard .cr-k,html body .foot .fcard .copyr{color:#fff!important}
+html body .foot .fcard .cr-o,html body .foot .fcard .copyr b,html body .foot .fcard .copyr strong{color:#fff!important;text-shadow:0 1px 2px rgba(3,70,110,.5)}
 </style>
 </body>
 </html>
