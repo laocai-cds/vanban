@@ -3701,5 +3701,13 @@ html body .podium .step .go{display:inline-flex;align-items:center;gap:5px;font:
 html body .podium .step:hover .go svg{transform:translateX(4px)}html body .podium .step .go svg{transition:transform .2s}
 @media(max-width:900px){html body .podium{grid-template-columns:1fr!important;gap:10px!important}}
 </style>
+<style id="trongdong">
+/* Hoa văn trống đồng xoay chậm, nằm chính giữa khối "Tình hình thu nộp đảng phí" */
+@keyframes vbSpin{to{transform:rotate(360deg)}}
+html body .hero .wrap>div:first-child{position:relative;overflow:hidden}
+html body .hero .wrap>div:first-child::before{display:block!important;content:""!important;position:absolute!important;left:50%!important;right:auto!important;top:50%!important;width:340px!important;height:340px!important;margin:-170px 0 0 -170px!important;background:url(trong-dong.png) center/contain no-repeat!important;opacity:.22!important;pointer-events:none;z-index:0;will-change:transform;animation:vbSpin 28s linear infinite}
+html body .hero .wrap>div:first-child>*{position:relative;z-index:1}
+@media(max-width:700px){html body .hero .wrap>div:first-child::before{width:240px!important;height:240px!important;margin:-120px 0 0 -120px!important}}
+</style>
 </body>
 </html>
