@@ -2108,9 +2108,9 @@ function apiBookmarklet(C){
   const go=async(auto)=>{
     const box=document.createElement('div');
     box.style.cssText='position:fixed;z-index:2147483647;top:14px;right:14px;max-width:380px;padding:12px 16px;border-radius:12px;background:#0f3a6e;color:#fff;font:600 14px/1.45 system-ui,sans-serif;white-space:pre-line;box-shadow:0 8px 28px rgba(0,0,0,.35)';
-    let T0=performance.now(),curMsg='',curBad=false,curOk=false,tick=null;
+    let T0=performance.now(),curMsg='',curBad=false,curOk=false,tick=null,dead=false;const acs=new Set();
     const f1=ms=>(ms/1000).toFixed(1).replace('.',',')+'s';
-    const paint=()=>{box.textContent=curMsg+(tick?'   ⏱ '+f1(performance.now()-T0):'');box.style.background=curBad?'#a50d26':curOk?'#0f8a3c':'#0f3a6e';if(!box.parentNode)document.body.appendChild(box)};
+    const paint=()=>{if(dead)return;box.textContent=curMsg+(tick?'   ⏱ '+f1(performance.now()-T0):'');box.style.background=curBad?'#a50d26':curOk?'#0f8a3c':'#0f3a6e';const xb=document.createElement('span');xb.textContent='✕';xb.title='Tắt / hủy lấy số liệu';xb.style.cssText='position:absolute;top:3px;right:9px;cursor:pointer;font-size:17px;line-height:1;opacity:.85';xb.onclick=e=>{e.stopPropagation();dead=true;if(tick){clearInterval(tick);tick=null}acs.forEach(a=>{try{a.abort()}catch(_){}});box.remove()};box.style.paddingRight='34px';box.appendChild(xb);if(!box.parentNode)document.body.appendChild(box)};
     const say=(m,bad,run,good)=>{curMsg=m;curBad=!!bad;curOk=!!good;if(run){if(!tick)tick=setInterval(paint,100)}else if(tick){clearInterval(tick);tick=null}paint()};
     const jp=(u,ms)=>new Promise(res=>{const cb='__apibm'+Date.now()+Math.random().toString(36).slice(2),sc=document.createElement('script');const t=setTimeout(()=>{delete window[cb];sc.remove();res(null)},ms||9000);window[cb]=v=>{clearTimeout(t);delete window[cb];sc.remove();res(v)};sc.onerror=()=>{clearTimeout(t);res(null)};sc.src=u+(u.includes('?')?'&':'?')+'callback='+cb+'&t='+Date.now();document.head.appendChild(sc)});
     try{
@@ -2150,7 +2150,7 @@ function apiBookmarklet(C){
       const getL=async pid=>{
         let r=null;
         for(let at=1;at<=3&&!r;at++){/* chờ tối đa 90 giây mỗi lần; chậm hoặc lỗi máy chủ thì tự thử lại 1 lần */
-          const ac=new AbortController(),to=setTimeout(()=>ac.abort(),90000);
+          if(dead)throw new Error('Đã hủy');const ac=new AbortController();acs.add(ac);const to=setTimeout(()=>ac.abort(),90000);
           try{
             if(at>1)say('API phản hồi chậm, đang thử lại lần '+at+'…',false,true);
             const rr=await fetch('https://gateway-gqtthc.dcs.vn/report/dashboard/danh-sach-theo-doi-dang-phi',{signal:ac.signal,method:'POST',headers:{Authorization:'Bearer '+tk,'Content-Type':'application/json',Accept:'application/json'},body:JSON.stringify({kyNopStart:kS,kyNopEnd:kE,parentId:pid,hasChildren:true,page:1,size:1000})});
@@ -2192,7 +2192,7 @@ function apiBookmarklet(C){
       const h1=['STT','Tên đơn vị','Đảng viên','','','','','Hồ sơ đảng phí','','','','Số tiền','',''];
       const h2=['','','Tổng sl đảng viên (1)','Số lượng ĐV sinh hoạt chính thức (2)','Số lượng ĐV sinh hoạt tạm thời (3)','Số lượng ĐV đã chuyển sinh hoạt đảng tạm thời (4)','Số lượng được miễn giảm ĐP (5)','Chưa duyệt (6)','Đã duyệt, chưa nộp (7)','Đã duyệt, đã nộp (8)','Số đảng viên chưa có hồ sơ (9)','Tổng tiền theo hồ sơ đã khai báo','Tổng tiền đã nộp','Tỷ lệ hoàn thành\n đảng phí thực tế'];
       const rows=[h2].concat(list.map((x,i)=>[i+1,x.tenDonVi,n(x.tongSoLuongDangVien),n(x.soLuongDangVienChinhThuc),n(x.soLuongDangVienTamThoi),n(x.soLuongChuyenTamThoi),n(x.soLuongDangVienMienGiam),n(x.tongSoHoSoChuaDuyet),n(x.tongSoHoSoDaDuyetChuaNop),n(x.tongSoHoSoDaDuyetDaNop),n(x.soLuongHoSoChuaKhaiBao),n(x.tongSoTienDaKhaiBao),n(x.tongSoTienDaNop),Math.round(n(x.mucDoThucHien)*100)/10000]));
-      say('Đang gửi '+list.length+' đơn vị lên Google Sheet…',false,true);
+      if(dead)throw new Error('Đã hủy');say('Đang gửi '+list.length+' đơn vị lên Google Sheet…',false,true);
       const tD=performance.now();
       const b0=await b0P,before=b0&&b0.ok?(b0.lastSync||''):null;
       await fetch(C.ep,{method:'POST',mode:'no-cors',redirect:'follow',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify(Object.assign(T?{tab:T}:{},{headers:h1,rows:rows,token:pw,source:C.src,sentAt:new Date().toISOString()}))});
