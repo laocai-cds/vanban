@@ -2164,7 +2164,7 @@ function apiBookmarklet(C){
       };
       /* đã từng lấy được mã của chính đơn vị: gọi thẳng danh sách con, bỏ qua truy vấn cấp tỉnh (rất chậm) */
       let R=null;const ck=(C.k||'dp')+'_cid';
-      try{const sv=localStorage.getItem(ck);if(sv){say('Đang lấy số liệu tháng '+SM+'/'+cy+' (đường nhanh)…',false,true);const X0=await getL(sv);
+      try{const sv=localStorage.getItem(ck)||C.cid;if(sv){say('Đang lấy số liệu tháng '+SM+'/'+cy+' (đường nhanh)…',false,true);const X0=await getL(sv);
         if(X0.list.length&&!X0.list.some(x=>/tỉnh Lào Cai/i.test(String(x.tenDonVi||''))||String(x.tenDonVi||'').trim()===C.name))R=X0}}catch(e){}
       if(!R){R=await getL(C.pid);
       if(!R.list.length){/* trả rỗng: chờ 2 giây thử lại 1 lần (có thể do máy chủ vừa làm mới phiên) */
@@ -2219,7 +2219,7 @@ function apiBookmarklet(C){
   window.__dpBmBusy=true;
   go(false).finally(()=>{window.__dpBmBusy=false;badge(hm())});
 }
-function apiBmSrc(){return '('+apiBookmarklet.toString()+')('+JSON.stringify({pid:2122408,name:'Đảng bộ xã Văn Bàn',max:0,k:'vb_apipw',src:'website-van-ban-api',m:true,ep:(sheetEndpoint())||''})+');void 0'}
+function apiBmSrc(){return '('+apiBookmarklet.toString()+')('+JSON.stringify({pid:2122408,cid:2124980,name:'Đảng bộ xã Văn Bàn',max:0,k:'vb_apipw',src:'website-van-ban-api',m:true,ep:(sheetEndpoint())||''})+');void 0'}
 (function(){
   const a=document.getElementById('apiBm'),c=document.getElementById('apiCopy'),cj=document.getElementById('apiCopyJs'),m=document.getElementById('apiMsg');if(!a)return;
   const say=t=>{m.hidden=false;m.textContent=t};
