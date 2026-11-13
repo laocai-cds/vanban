@@ -1325,7 +1325,7 @@ window.AUTH=(function(){
 })();
 </script>
 <script>
-const MAX_UNITS=33;/* mọi tháng chỉ lấy đơn vị số 1–33 */
+/* không giới hạn 33 đơn vị nữa: lấy mọi đơn vị có đảng viên */
 const INITIAL_UNITS=[];// Danh sách đơn vị trực thuộc Đảng bộ xã Văn Bàn được đọc từ Google Sheet (chưa có số liệu dự phòng)
 const KEYS={stt:'STT',name:'Tên đơn vị',members:'Tổng sl đảng viên (1)',pending:'Chưa duyệt (6)',paidCount:'Đã duyệt, đã nộp (8)',unfiled:'Số đảng viên chưa có hồ sơ (9)',declared:'Tổng tiền theo hồ sơ đã khai báo',paid:'Tổng tiền đã nộp',progress:'Tỷ lệ hoàn thành\n đảng phí thực tế',exempt:'Số lượng được miễn giảm ĐP (5)',moved:'Số lượng ĐV đã chuyển sinh hoạt đảng tạm thời (4)',approved:'Đã duyệt, chưa nộp (7)'};
 const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
@@ -1379,7 +1379,7 @@ function matchUnits(headers,rows){
   if(R.length&&R.some(c=>/\(1\)/.test(String(c)))){const sub=R[0];while(H.length<sub.length)H.push('');H=H.map((h,i)=>{const t=String(sub[i]==null?'':sub[i]).trim();return t||h});R=R.slice(1)}
   const ni=H.findIndex(h=>h===KEYS.name);if(ni<0)return null;
   const map=new Map();R.forEach(row=>{const o={};H.forEach((h,i)=>o[String(h).trim()]=row[i]==null?'':String(row[i]));const k=nkey(o[KEYS.name]);if(k){if(!map.has(k))map.set(k,[]);map.get(k).push(o)}});
-  if(!INITIAL_UNITS.length){const all=[];map.forEach(L=>L.forEach(o=>{if(/^\d+$/.test(String(o[KEYS.stt]).trim()))all.push(o)}));all.sort((a,b)=>Number(a[KEYS.stt])-Number(b[KEYS.stt]));const cap=all.slice(0,MAX_UNITS);return cap.length?{next:cap,hit:cap.length}:null}
+  if(!INITIAL_UNITS.length){const all=[];map.forEach(L=>L.forEach(o=>{if(/^\d+$/.test(String(o[KEYS.stt]).trim()))all.push(o)}));all.sort((a,b)=>Number(a[KEYS.stt])-Number(b[KEYS.stt]));const cap=all.filter(o=>Number(String(o[KEYS.members]).replace(/\D/g,''))>0);/* lấy mọi đơn vị có đảng viên, bỏ dòng 0/0 */return cap.length?{next:cap,hit:cap.length}:null}
   let hit=0;const next=INITIAL_UNITS.map(u=>{const L=map.get(nkey(u[KEYS.name]));const o=L&&(L.find(x=>String(x[KEYS.stt]).trim()===String(u[KEYS.stt]).trim())||L[0]);if(o){hit++;return o}return u});
   return hit<Math.ceil(INITIAL_UNITS.length*.8)?null:{next,hit}}
 function applySheet(d){
