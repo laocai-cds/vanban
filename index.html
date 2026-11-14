@@ -970,7 +970,7 @@ go();document.addEventListener('DOMContentLoaded',go);
         <div class="heroline" id="heroline"></div>
       </div>
       <aside class="dpanel" aria-label="Biểu đồ tròn tình hình thu">
-        <div class="dhead"><b>Tình hình thu toàn Đảng bộ</b><small>Vòng ngoài là đảng viên, vòng trong là đơn vị</small></div>
+        <div class="dhead"><b>Tình hình thu toàn Đảng bộ</b><small>Vòng ngoài là đảng viên, vòng trong là đơn vị</small><a class="kp-prov" data-prov-rank href="https://laocai-tthc.pages.dev/" target="_blank" rel="noopener" title="Xem bảng xếp hạng thu đảng phí 103 đơn vị trực thuộc Tỉnh ủy">🏆 Xếp hạng toàn tỉnh: <span class="pv">…</span></a></div>
         <div class="dbody">
           <div class="donut"><svg viewBox="0 0 220 220" id="donutsvg" role="img"></svg><div class="dcenter"><strong id="donutpct">0,00 %</strong><span>đảng viên đã nộp đảng phí</span></div></div>
           <div class="dlegend" id="dlegend"></div>
@@ -1602,7 +1602,7 @@ function render(){
   const t=totals(),rate=t.due?t.paidCount/t.due:0;
   const active=units.filter(r=>v(r,'members')>0),done=units.filter(r=>cls(r)==='complete').length;
 
-  $('#heroline').innerHTML=`<div><b>${money(t.paid)}</b><small>Đã thu</small></div><div><b>${t.paidCount}/${t.due}</b><small>Đảng viên đã nộp</small></div><div class="hl-rank"><b>${done}/${units.length}</b><small>Đơn vị hoàn thành</small><button type="button" class="kp-more" data-rank-open title="Xem bảng xếp hạng đơn vị">Xếp hạng<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg></button><a class="kp-more kp-prov" data-prov-rank href="https://laocai-tthc.pages.dev/" target="_blank" rel="noopener" title="Xem bảng xếp hạng thu đảng phí 103 đơn vị trực thuộc Tỉnh ủy">🏆 Xếp hạng toàn tỉnh: <span class="pv">${PROV.st==='ok'?('hạng '+PROV.rank+'/'+PROV.total):(PROV.st==='err'?'chưa đọc được':'…')}</span></a></div><div><b>${dataSrc==='loading'?'…':(dataStamp||'—')}</b><small>${dataSrc==='sheet'?'Google Sheet cập nhật':'Dữ liệu cập nhật'}</small></div>`;
+  $('#heroline').innerHTML=`<div><b>${money(t.paid)}</b><small>Đã thu</small></div><div><b>${t.paidCount}/${t.due}</b><small>Đảng viên đã nộp</small></div><div class="hl-rank"><b>${done}/${units.length}</b><small>Đơn vị hoàn thành</small><button type="button" class="kp-more" data-rank-open title="Xem bảng xếp hạng đơn vị">Xếp hạng<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg></button></div><div><b>${dataSrc==='loading'?'…':(dataStamp||'—')}</b><small>${dataSrc==='sheet'?'Google Sheet cập nhật':'Dữ liệu cập nhật'}</small></div>`;
   {const hd=$('#heroDate');if(hd){const d=new Date();hd.textContent='Ngày '+d.getDate()+' tháng '+(d.getMonth()+1)+' năm '+d.getFullYear()}}
   renderDonut(t,rate,active);renderMonthly();renderBanner();
 
@@ -3296,7 +3296,7 @@ document.addEventListener('keydown',function(e){var o=ov();if(e.key==='Escape'&&
 <style id="rankBtnCss">
 html body .heroline>.hl-rank .kp-more{display:inline-flex;align-items:center;gap:5px;margin:8px 0 0;padding:4px 11px;border:1px solid #ffd84d99;border-radius:999px;background:#ffd84d26;color:#ffe27a;font:700 11.5px/1.3 var(--display,inherit);cursor:pointer;white-space:nowrap;transition:background .2s,box-shadow .2s,transform .2s}
 html body .heroline>.hl-rank .kp-prov{margin-left:6px;text-decoration:none}
-html body .heroline>.hl-rank .kp-prov .pv{color:#fff}
+html body .heroline>.hl-rank .kp-prov .pv{color:#fff}html body .dhead .kp-prov{display:inline-flex;align-items:center;margin-top:8px;color:var(--lac-d,#0b4f9c);font:700 12px/1.3 var(--display,inherit);text-decoration:none}html body .dhead .kp-prov:hover{text-decoration:underline}
 html body .heroline>.hl-rank .kp-more:hover{background:linear-gradient(135deg,#ffd84d,#ffb800);color:#3a2a06;box-shadow:0 0 14px #ffc21a99;transform:scale(1.05)}
 html body .heroline>.hl-rank .kp-more svg{width:13px;height:13px;transition:transform .2s}
 html body .heroline>.hl-rank .kp-more:hover svg{transform:translateX(3px)}
