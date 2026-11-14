@@ -1586,7 +1586,7 @@ function provParse(p){
     const d={name:tx(c[1]),t:nm(c[2]),ct:nm(c[3]),tt:nm(c[4]),chuyen:nm(c[5]),mien:nm(c[6]),dn:nm(c[9]),nop:nm(c[12])};
     d.need=Math.max(0,d.ct+d.tt-d.chuyen-d.mien);d.rate=d.need>0?Math.min(100,d.dn/d.need*100):0;return d}).filter(d=>d.t>0);
   return rows.length?rows:null}
-function provShow(){$$('[data-prov-rank] .pv').forEach(e=>{e.textContent=PROV.st==='ok'?('hạng '+PROV.rank+'/'+PROV.total):(PROV.st==='err'?'chưa đọc được':'…')})}
+function provShow(){$$('[data-prov-rank] .pv').forEach(e=>{e.textContent=PROV.st==='ok'?(PROV.rank+'/'+PROV.total):(PROV.st==='err'?'chưa đọc được':'…')})}
 async function provLoad(){
   if(PROV.busy)return;PROV.busy=1;if(PROV.st!=='ok')PROV.st='loading';
   try{
