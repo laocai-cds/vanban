@@ -1511,6 +1511,7 @@ function start(){
   if(hasEp&&cached&&Array.isArray(cached.headers)&&applySheet({ok:true,headers:cached.headers,rows:cached.rows,lastSync:cached.lastSync,t:cached.t})){dataSrc='cache'}
   else{dataSrc=hasEp?'loading':'backup';if(hasEp)setLoading(true);else showBackupNote(true)}
   render();
+  provLoad();setInterval(()=>{if(!document.hidden)provLoad()},300000);
   const guard=dataSrc==='loading'?setTimeout(()=>{if(dataSrc==='loading'){dataSrc='backup';setLoading(false);showBackupNote(true);render()}},10000):0;
   loadFromSheet().then(()=>{clearTimeout(guard);if(dataSrc!=='sheet'){setLoading(false);if(dataSrc==='backup')showBackupNote(true)}render();syncMonthly()});
   const tick=()=>{if(document.hidden)return;const before=sigOf(liveUnits);loadFromSheet().then(x=>{if(x.state==='ok'&&sigOf(liveUnits)!==before)render()})};
@@ -1571,11 +1572,37 @@ function startLoop(){
   clearInterval(loopTimer);return;
   loopTimer=setInterval(()=>{if(document.hidden||!$('#overview').classList.contains('on'))return;growBars('.chartwrap')},4000);
 }
+/* ===== Xếp hạng toàn tỉnh: đọc cùng Google Sheet 103 đơn vị của DVC Lào Cai, tính hạng đúng công thức bảng xếp hạng bên đó ===== */
+const PROV={sheet:'1N8o54EORq0rgQ2yV62tJUeOh_89n-toiD-M1AGkWO4g',name:'dang bo xa van ban',rank:0,total:0,st:'idle'};
+function provNorm(s){return String(s||'').normalize('NFD').replace(/[̀-ͯ]/g,'').replace(/[đĐ]/g,'d').toLowerCase().replace(/[^a-z0-9]+/g,' ').trim()}
+function provTab(y,m){return 'Thang'+m+(y===2026?'':'_'+y)}
+function provFetch(tab){return new Promise(res=>{const cb='__provRank_'+Date.now()+'_'+Math.random().toString(36).slice(2),sc=document.createElement('script');let end=false;
+  const fin=v=>{if(end)return;end=true;clearTimeout(tm);delete window[cb];sc.remove();res(v)},tm=setTimeout(()=>fin(null),20000);
+  window[cb]=p=>fin(p&&p.table?p:null);sc.onerror=()=>fin(null);
+  sc.src='https://docs.google.com/spreadsheets/d/'+PROV.sheet+'/gviz/tq?tqx=out:json;responseHandler:'+cb+'&sheet='+encodeURIComponent(tab)+'&headers=2&_='+Date.now();sc.async=true;document.head.appendChild(sc)})}
+function provParse(p){
+  const tx=c=>String(c?(c.v!=null?c.v:(c.f!=null?c.f:'')):'').trim(),nm=c=>{if(!c)return 0;if(typeof c.v==='number')return c.v;const q=String(c.f!=null?c.f:(c.v!=null?c.v:'')).replace(/[^\d-]/g,'');return q?parseInt(q,10):0};
+  const rows=((p&&p.table&&p.table.rows)||[]).map(r=>r.c||[]).filter(c=>/^\d+$/.test(tx(c[0]).replace(/\.0$/,''))&&tx(c[1])).map(c=>{
+    const d={name:tx(c[1]),t:nm(c[2]),ct:nm(c[3]),tt:nm(c[4]),chuyen:nm(c[5]),mien:nm(c[6]),dn:nm(c[9]),nop:nm(c[12])};
+    d.need=Math.max(0,d.ct+d.tt-d.chuyen-d.mien);d.rate=d.need>0?Math.min(100,d.dn/d.need*100):0;return d}).filter(d=>d.t>0);
+  return rows.length?rows:null}
+function provShow(){$$('[data-prov-rank] b').forEach(e=>{e.textContent=PROV.st==='ok'?('hạng '+PROV.rank+'/'+PROV.total):(PROV.st==='err'?'chưa đọc được':'…')})}
+async function provLoad(){
+  if(PROV.busy)return;PROV.busy=1;if(PROV.st!=='ok')PROV.st='loading';
+  try{
+    const n=new Date(new Date().toLocaleString('en-US',{timeZone:'Asia/Ho_Chi_Minh'}));let y=n.getFullYear(),m=n.getMonth()+1,rows=null;
+    for(let i=0;i<2&&!rows;i++){rows=provParse(await provFetch(provTab(y,m)));if(!rows){m--;if(m<1){m=12;y--}}}
+    if(!rows)throw 0;
+    rows.sort((a,b)=>Math.round(b.rate*100)-Math.round(a.rate*100)||b.nop-a.nop||b.dn-a.dn||a.name.localeCompare(b.name,'vi'));
+    let i=rows.findIndex(r=>provNorm(r.name)===PROV.name);if(i<0)i=rows.findIndex(r=>/\bxa van ban$/.test(provNorm(r.name)));if(i<0)throw 0;
+    PROV.rank=i+1;PROV.total=rows.length;PROV.st='ok'
+  }catch(e){if(PROV.st!=='ok')PROV.st='err'}
+  PROV.busy=0;provShow()}
 function render(){
   const t=totals(),rate=t.due?t.paidCount/t.due:0;
   const active=units.filter(r=>v(r,'members')>0),done=units.filter(r=>cls(r)==='complete').length;
 
-  $('#heroline').innerHTML=`<div><b>${money(t.paid)}</b><small>Đã thu</small></div><div><b>${t.paidCount}/${t.due}</b><small>Đảng viên đã nộp</small></div><div class="hl-rank"><b>${done}/${units.length}</b><small>Đơn vị hoàn thành</small><button type="button" class="kp-more" data-rank-open title="Xem bảng xếp hạng đơn vị">Xếp hạng<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg></button></div><div><b>${dataSrc==='loading'?'…':(dataStamp||'—')}</b><small>${dataSrc==='sheet'?'Google Sheet cập nhật':'Dữ liệu cập nhật'}</small></div>`;
+  $('#heroline').innerHTML=`<div><b>${money(t.paid)}</b><small>Đã thu</small></div><div><b>${t.paidCount}/${t.due}</b><small>Đảng viên đã nộp</small></div><div class="hl-rank"><b>${done}/${units.length}</b><small>Đơn vị hoàn thành</small><button type="button" class="kp-more" data-rank-open title="Xem bảng xếp hạng đơn vị">Xếp hạng<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg></button><a class="kp-more kp-prov" data-prov-rank href="https://laocai-tthc.pages.dev/" target="_blank" rel="noopener" title="Xem bảng xếp hạng thu đảng phí 103 đơn vị trực thuộc Tỉnh ủy">🏆 Xếp hạng toàn tỉnh: <b>${PROV.st==='ok'?('hạng '+PROV.rank+'/'+PROV.total):(PROV.st==='err'?'chưa đọc được':'…')}</b></a></div><div><b>${dataSrc==='loading'?'…':(dataStamp||'—')}</b><small>${dataSrc==='sheet'?'Google Sheet cập nhật':'Dữ liệu cập nhật'}</small></div>`;
   {const hd=$('#heroDate');if(hd){const d=new Date();hd.textContent='Ngày '+d.getDate()+' tháng '+(d.getMonth()+1)+' năm '+d.getFullYear()}}
   renderDonut(t,rate,active);renderMonthly();renderBanner();
 
@@ -3268,6 +3295,8 @@ document.addEventListener('keydown',function(e){var o=ov();if(e.key==='Escape'&&
 </style>
 <style id="rankBtnCss">
 html body .heroline>.hl-rank .kp-more{display:inline-flex;align-items:center;gap:5px;margin:8px 0 0;padding:4px 11px;border:1px solid #ffd84d99;border-radius:999px;background:#ffd84d26;color:#ffe27a;font:700 11.5px/1.3 var(--display,inherit);cursor:pointer;white-space:nowrap;transition:background .2s,box-shadow .2s,transform .2s}
+html body .heroline>.hl-rank .kp-prov{margin-left:6px;text-decoration:none}
+html body .heroline>.hl-rank .kp-prov b{display:inline;font:inherit;color:#fff}
 html body .heroline>.hl-rank .kp-more:hover{background:linear-gradient(135deg,#ffd84d,#ffb800);color:#3a2a06;box-shadow:0 0 14px #ffc21a99;transform:scale(1.05)}
 html body .heroline>.hl-rank .kp-more svg{width:13px;height:13px;transition:transform .2s}
 html body .heroline>.hl-rank .kp-more:hover svg{transform:translateX(3px)}
