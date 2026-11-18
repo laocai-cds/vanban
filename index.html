@@ -1710,10 +1710,10 @@ function fillTables(){
   list=sorted(list);
   $('#rowcount').textContent=`Hiển thị ${list.length} / ${units.length} đơn vị`;
   $('#noresult').hidden=list.length>0;
-  $('#tbody').innerHTML=list.map(r=>{const[s,c]=status(r);return `<tr class="row ${cls(r)} ${tier(r)}"><td>${rk(r)}</td><td class="uname" data-cb="${cbSlug(r)}" title="Xem thẻ đơn vị">${esc(nm(r))}</td><td class="n pc"><b>${v(r,'paidCount')}</b>/${v(r,'due')}</td>${zc(v(r,'pending'),'amb')}${zc(v(r,'noRecord'),'red')}<td class="n">${money(v(r,'declared'))}</td><td class="n mny"><b>${money(v(r,'paid'))}</b></td><td>${progCell(r)}</td><td><span class="pill ${c}">${s}</span>${subTg(r)}</td></tr>`+subRows1(r)}).join('');
+  $('#tbody').innerHTML=list.map(r=>{const[s,c]=status(r);return `<tr class="row ${cls(r)} ${tier(r)}"><td>${rk(r)}</td><td class="uname" data-cb="${cbSlug(r)}" title="Xem thẻ đơn vị">${esc(nm(r))}${subTg(r)}</td><td class="n pc"><b>${v(r,'paidCount')}</b>/${v(r,'due')}</td>${zc(v(r,'pending'),'amb')}${zc(v(r,'noRecord'),'red')}<td class="n">${money(v(r,'declared'))}</td><td class="n mny"><b>${money(v(r,'paid'))}</b></td><td>${progCell(r)}</td><td><span class="pill ${c}">${s}</span></td></tr>`+subRows1(r)}).join('');
   const q2=($('#search2').value||'').toLocaleLowerCase('vi');
   const l2=sorted(units.filter(r=>nm(r).toLocaleLowerCase('vi').includes(q2)));
-  $('#tbody2').innerHTML=l2.map(r=>`<tr class="row ${cls(r)} ${tier(r)}"><td class="hint">${esc(r[KEYS.stt])}</td><td>${rk(r)}</td><td class="uname" data-cb="${cbSlug(r)}" title="Xem thẻ đơn vị">${esc(nm(r))}</td><td class="n">${v(r,'members')}</td>${zc(v(r,'pending'),'amb')}<td class="n pc"><b>${v(r,'paidCount')}</b></td><td class="n mny"><b>${money(v(r,'paid'))}</b></td><td>${progCell(r)}${subTg(r)}</td></tr>`+subRows2(r)).join('');
+  $('#tbody2').innerHTML=l2.map(r=>`<tr class="row ${cls(r)} ${tier(r)}"><td class="hint">${esc(r[KEYS.stt])}</td><td>${rk(r)}</td><td class="uname" data-cb="${cbSlug(r)}" title="Xem thẻ đơn vị">${esc(nm(r))}${subTg(r)}</td><td class="n">${v(r,'members')}</td>${zc(v(r,'pending'),'amb')}<td class="n pc"><b>${v(r,'paidCount')}</b></td><td class="n mny"><b>${money(v(r,'paid'))}</b></td><td>${progCell(r)}</td></tr>`+subRows2(r)).join('');
   $$('th[data-sort]').forEach(th=>th.setAttribute('aria-sort',th.dataset.sort===state.sort.k?(state.sort.dir>0?'ascending':'descending'):'none'));
   growBars('#overview .tw');growBars('#units .tw');
 }
